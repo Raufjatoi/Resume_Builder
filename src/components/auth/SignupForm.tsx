@@ -109,20 +109,21 @@ const SignupForm = () => {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300"></div>
+            
           </div>
-          <div className="relative flex justify-center text-sm">
+           </div>
+          {/* <div className="relative flex justify-center text-sm">
             <span className="px-2 bg-white text-gray-500">Or continue with</span>
           </div>
-        </div>
-
+       
+        
         <Button
           type="button"
           variant="outline"
           className="w-full flex items-center justify-center"
           disabled={isLoading}
-          onClick={() => {/* Implement Google sign-up here */}}
-        >
+          onClick={() => {}}
+          >
           <img
             src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
             alt="Google"
@@ -130,7 +131,7 @@ const SignupForm = () => {
           />
           Sign up with Google
         </Button>
-
+        */}
         <div className="text-center text-sm text-gray-600">
           Already have an account?{" "}
           <Link to="/login" className="text-primary font-medium hover:underline">

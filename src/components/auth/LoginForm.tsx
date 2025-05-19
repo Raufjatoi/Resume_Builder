@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +12,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const { signIn } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,6 +20,10 @@ const LoginForm = () => {
     setIsLoading(true);
     try {
       await signIn(email, password);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Login error:", error);
+      // You can use a toast here to notify the user
     } finally {
       setIsLoading(false);
     }
@@ -28,12 +32,11 @@ const LoginForm = () => {
   return (
     <div className="w-full max-w-md">
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Email Field */}
         <div className="space-y-2">
           <Label htmlFor="email">Email Address</Label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Mail className="h-5 w-5 text-gray-400" />
-            </div>
+            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
             <Input
               id="email"
               type="email"
@@ -46,6 +49,7 @@ const LoginForm = () => {
           </div>
         </div>
 
+        {/* Password Field */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <Label htmlFor="password">Password</Label>
@@ -54,9 +58,7 @@ const LoginForm = () => {
             </Link>
           </div>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Lock className="h-5 w-5 text-gray-400" />
-            </div>
+            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
             <Input
               id="password"
               type={showPassword ? "text" : "password"}
@@ -66,42 +68,47 @@ const LoginForm = () => {
               required
             />
             <div
-              className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? (
-                <EyeOff className="h-5 w-5 text-gray-400" />
-              ) : (
-                <Eye className="h-5 w-5 text-gray-400" />
-              )}
+              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </div>
           </div>
         </div>
 
+        {/* Remember Me */}
         <div className="flex items-center space-x-2">
           <Checkbox id="remember" />
           <Label htmlFor="remember" className="text-sm">Remember me</Label>
         </div>
 
+        {/* Submit Button */}
         <Button type="submit" className="w-full" disabled={isLoading}>
           {isLoading ? "Signing in..." : "Sign In"}
         </Button>
 
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300"></div>
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-gray-500">Or continue with</span>
-          </div>
+        {/* Sign Up Link */}
+        <div className="text-center text-sm text-muted-foreground">
+          Don&apos;t have an account?{" "}
+          <Link to="/signup" className="text-primary font-medium hover:underline">
+            Sign up
+          </Link>
+        </div>
+
+        {/* Uncomment below if you want Google sign-in */}
+        {/*
+        <div className="relative flex justify-center text-sm mt-4">
+          <span className="px-2 bg-white text-gray-500">Or continue with</span>
         </div>
 
         <Button
           type="button"
           variant="outline"
-          className="w-full flex items-center justify-center"
+          className="w-full flex items-center justify-center mt-2"
           disabled={isLoading}
-          onClick={() => {/* Implement Google sign-in here */}}
+          onClick={() => {
+            // Handle Google sign-in
+          }}
         >
           <img
             src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
@@ -110,13 +117,7 @@ const LoginForm = () => {
           />
           Sign in with Google
         </Button>
-
-        <div className="text-center text-sm text-gray-600">
-          Don't have an account?{" "}
-          <Link to="/signup" className="text-primary font-medium hover:underline">
-            Sign up
-          </Link>
-        </div>
+        */}
       </form>
     </div>
   );
