@@ -20,7 +20,7 @@ const LoginForm = () => {
     setIsLoading(true);
     try {
       await signIn(email, password);
-      navigate("/dashboard");
+      // Navigation is handled in the signIn function
     } catch (error) {
       console.error("Login error:", error);
       // You can use a toast here to notify the user

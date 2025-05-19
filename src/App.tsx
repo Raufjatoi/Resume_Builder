@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 // Pages
 import Index from "./pages/Index";
@@ -24,8 +26,25 @@ const queryClient = new QueryClient();
 const App = () => {
   // Create a PrivateRoute component to protect routes that require authentication
   const PrivateRoute = ({ element }: { element: React.ReactNode }) => {
-    const token = localStorage.getItem('sb-access-token');
-    return token ? <>{element}</> : <Navigate to="/login" />;
+    // Use the session from Supabase directly instead of looking for a specific token key
+    const [authenticated, setAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      const checkAuth = async () => {
+        const { data } = await supabase.auth.getSession();
+        setAuthenticated(!!data.session);
+        setLoading(false);
+      };
+      
+      checkAuth();
+    }, []);
+
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+
+    return authenticated ? <>{element}</> : <Navigate to="/login" />;
   };
 
   return (

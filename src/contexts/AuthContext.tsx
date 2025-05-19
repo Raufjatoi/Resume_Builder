@@ -65,9 +65,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (error) throw error;
 
-      toast.success("Signed up successfully! Please check your email to verify your account.");
-      // If email confirmation is OFF in Supabase, redirect directly:
-      // navigate("/dashboard");
+      toast.success("Signed up successfully!");
+      // Email confirmation is OFF in Supabase, redirect directly:
+      navigate("/dashboard");
     } catch (error: any) {
       toast.error(error.message || "Failed to sign up");
     }
