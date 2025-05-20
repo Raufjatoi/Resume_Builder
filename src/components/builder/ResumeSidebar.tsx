@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -65,9 +64,9 @@ const ResumeSidebar = ({
   progress,
 }: ResumeSidebarProps) => {
   return (
-    <div className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-4 h-full overflow-y-auto">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="font-semibold text-gray-700 dark:text-gray-200">Resume Sections</h3>
+    <div className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-4 h-full overflow-y-auto flex-shrink-0">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-gray-700 dark:text-gray-200 text-sm">Resume Sections</h3>
         <Button
           size="sm"
           variant="outline"
@@ -86,7 +85,7 @@ const ResumeSidebar = ({
               key={section.id}
               onClick={() => onSectionChange(section.id)}
               className={cn(
-                "flex items-center justify-between w-full px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                "flex items-center justify-between w-full px-2 py-2 text-sm font-medium rounded-md transition-colors",
                 isActive
                   ? "bg-primary text-white"
                   : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -101,7 +100,7 @@ const ResumeSidebar = ({
                 >
                   {section.icon}
                 </span>
-                <span>{section.name}</span>
+                <span className="text-xs sm:text-sm">{section.name}</span>
               </div>
               {isComplete && !isActive && (
                 <CheckCircle className="h-4 w-4 text-green-500" />
@@ -111,11 +110,11 @@ const ResumeSidebar = ({
         })}
       </div>
       
-      <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-        <h3 className="font-semibold text-gray-700 dark:text-gray-200 mb-3">AI Assistance</h3>
+      <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <h3 className="font-semibold text-gray-700 dark:text-gray-200 mb-3 text-xs sm:text-sm">AI Assistance</h3>
         <button
           onClick={() => {}}
-          className="flex items-center w-full px-3 py-2 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+          className="flex items-center w-full px-2 py-2 text-xs sm:text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
         >
           <MessageSquare className="mr-2 h-4 w-4 text-gray-500 dark:text-gray-400" />
           <span>Career Counseling</span>

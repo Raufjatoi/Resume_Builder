@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -63,10 +62,10 @@ const CertificationsSection = ({ initialData = [], onSave }: CertificationsSecti
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
         <div>
-          <h2 className="text-2xl font-bold">Certifications</h2>
-          <p className="text-gray-500 dark:text-gray-400">
+          <h2 className="text-xl sm:text-2xl font-bold">Certifications</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             Add your professional certifications and credentials
           </p>
         </div>
@@ -85,11 +84,11 @@ const CertificationsSection = ({ initialData = [], onSave }: CertificationsSecti
                 <AccordionTrigger className="hover:no-underline py-2">
                   {cert.name ? (
                     <div className="text-left">
-                      <p className="font-medium">{cert.name}</p>
-                      <p className="text-sm text-gray-500">{cert.issuer}</p>
+                      <p className="font-medium text-sm">{cert.name}</p>
+                      <p className="text-xs text-gray-500">{cert.issuer}</p>
                     </div>
                   ) : (
-                    <span className="text-gray-500 italic">New Certification</span>
+                    <span className="text-gray-500 italic text-sm">New Certification</span>
                   )}
                 </AccordionTrigger>
                 <Button 
@@ -182,8 +181,11 @@ const CertificationsSection = ({ initialData = [], onSave }: CertificationsSecti
           </Button>
         </div>
 
-        <div className="flex justify-end space-x-4">
-          <Button type="submit" className="bg-primary hover:bg-primary-light">
+        <div className="flex justify-end">
+          <Button 
+            type="submit" 
+            className="bg-primary hover:bg-primary-light w-full sm:w-auto"
+          >
             Save & Continue
           </Button>
         </div>

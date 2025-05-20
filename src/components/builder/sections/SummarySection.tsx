@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -44,16 +43,16 @@ const SummarySection = ({ initialData = "", onSave }: SummarySectionProps) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
         <div>
-          <h2 className="text-2xl font-bold">Professional Summary</h2>
-          <p className="text-gray-500 dark:text-gray-400">
+          <h2 className="text-xl sm:text-2xl font-bold">Professional Summary</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             Write a compelling summary that highlights your key qualifications
           </p>
         </div>
         <Button 
           variant="outline" 
-          className="flex items-center" 
+          className="flex items-center sm:w-auto w-full justify-center" 
           onClick={handleAiSuggestions}
           disabled={loading}
         >
@@ -80,7 +79,7 @@ const SummarySection = ({ initialData = "", onSave }: SummarySectionProps) => {
         
         {suggestions && (
           <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 rounded-md">
-            <h3 className="font-semibold mb-2 flex items-center">
+            <h3 className="font-semibold mb-2 flex items-center text-sm">
               <Sparkles className="h-4 w-4 mr-2 text-primary" />
               AI Suggestions
             </h3>
@@ -90,15 +89,19 @@ const SummarySection = ({ initialData = "", onSave }: SummarySectionProps) => {
           </div>
         )}
         
-        <div className="flex justify-end space-x-4">
+        <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4">
           <Button
             type="button"
             variant="outline"
+            className="w-full sm:w-auto"
             onClick={() => setSummary("")}
           >
             Reset
           </Button>
-          <Button type="submit" className="bg-primary hover:bg-primary-light">
+          <Button 
+            type="submit" 
+            className="bg-primary hover:bg-primary-light w-full sm:w-auto"
+          >
             Save & Continue
           </Button>
         </div>

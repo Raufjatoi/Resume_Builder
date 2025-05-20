@@ -26,10 +26,7 @@ const AIAssistantSection = () => {
             <h2 className="heading-lg text-gray-900">
               Get Expert Resume Help with Our AI Assistant
             </h2>
-            <p className="subtitle mt-6">
-              Our AI assistant helps you craft the perfect resume by providing tailored
-              suggestions for each section, improving your language, and highlighting your
-              achievements effectively.
+            <p className="subtitle mt-6">AI Assistant is powered by Groq's Compound-Beta model with system prompts to assist in career counseling and resume suggestions for every section. 
             </p>
             <ul className="mt-6 space-y-3">
               {[

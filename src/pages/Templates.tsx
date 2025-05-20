@@ -11,22 +11,22 @@ import { Search, ChevronRight } from "lucide-react";
 const templatesData = [
   {
     id: "1",
-    name: "Modern Professional",
-    category: "Professional",
-    description: "Clean and minimal design for corporate environments",
-    image: "p.png",
+    name: "Simple Resume ",
+    category: "Simple",
+    description: "Minimal clean and simplistic resume",
+    image: "s.png",
   },
   {
     id: "2",
-    name: "Creative Bold",
-    category: "Creative",
-    description: "Stand out with this creative and bold design",
-    image: "/placeholder.svg",
+    name: "Modern Resume",
+    category: "Modern",
+    description: "Stand out with Modern and bold design",
+    image: "m.png",
   },
 ];
 
 // Template categories
-const categories = ["All", "Professional", "Creative"];
+const categories = ["All", "Simple", "Modern"];
 
 const Templates = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -52,7 +52,7 @@ const Templates = () => {
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Resume Templates</h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Choose from our collection of professionally designed templates to create your perfect resume
+              Choose templates to create your perfect resume
             </p>
           </div>
           

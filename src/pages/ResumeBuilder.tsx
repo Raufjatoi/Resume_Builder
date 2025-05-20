@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams, useParams } from "react-router-dom";
 import { toast } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
@@ -264,11 +264,11 @@ const ResumeBuilder = () => {
   };
 
   const handleExport = () => {
-    // In a real implementation, this would generate a PDF
-    toast.success("Your resume has been exported!");
-    console.log("Exporting resume", resumeData);
-    // For now we just switch to the preview tab
+    // Switch to the preview tab first
     setActiveTab("preview");
+    
+    // The actual PDF export will be handled by the ResumePreview component
+    toast.success("Preparing your resume for download...");
   };
 
   const handleTemplateChange = (template: string) => {

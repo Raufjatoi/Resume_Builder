@@ -20,6 +20,9 @@ import Pricing from "./pages/Pricing";
 import ResumeBuilder from "./pages/ResumeBuilder";
 import NotFound from "./pages/NotFound";
 import Settings from "./pages/Settings";
+import Resumes from "./pages/Resumes";
+import Assistant from "./pages/Assistant";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -63,17 +66,15 @@ const App = () => {
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/templates" element={<Templates />} />
                 
-                {/* Protected Routes */}
                 <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
                 <Route path="/dashboard/templates" element={<PrivateRoute element={<Templates />} />} />
                 <Route path="/dashboard/builder/:id" element={<PrivateRoute element={<ResumeBuilder />} />} />
                 <Route path="/dashboard/builder/new" element={<PrivateRoute element={<ResumeBuilder />} />} />
-                <Route path="/dashboard/resumes" element={<PrivateRoute element={<Dashboard />} />} />
-                <Route path="/dashboard/assistant" element={<PrivateRoute element={<Dashboard />} />} />
-                <Route path="/dashboard/profile" element={<PrivateRoute element={<Dashboard />} />} />
+                <Route path="/dashboard/resumes" element={<PrivateRoute element={<Resumes />} />} />
+                <Route path="/dashboard/assistant" element={<PrivateRoute element={<Assistant />} />} />
+                <Route path="/dashboard/profile" element={<PrivateRoute element={<Profile />} />} />
                 <Route path="/dashboard/settings" element={<PrivateRoute element={<Settings />} />} />
                 <Route path="/dashboard/export/:id" element={<PrivateRoute element={<Dashboard />} />} />
-                
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </TooltipProvider>

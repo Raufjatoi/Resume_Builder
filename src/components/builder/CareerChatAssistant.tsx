@@ -1,11 +1,11 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Loader2, Send, Sparkles, FileText } from "lucide-react";
 import { generateCareerAdvice, generateResumeReview } from "@/utils/groqApi";
 import { toast } from "@/components/ui/sonner";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Message {
   id: string;
@@ -147,7 +147,16 @@ const CareerChatAssistant = ({ resumeData }: CareerChatAssistantProps) => {
                   : "bg-primary text-white"
               }`}
             >
-              <div className="whitespace-pre-line">{message.content}</div>
+              {message.role === "assistant" ? (
+                <div className="prose prose-sm dark:prose-invert max-w-none">
+  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+    {message.content}
+  </ReactMarkdown>
+</div>
+
+              ) : (
+                <div className="whitespace-pre-line">{message.content}</div>
+              )}
               <div
                 className={`text-xs mt-2 ${
                   message.role === "assistant"

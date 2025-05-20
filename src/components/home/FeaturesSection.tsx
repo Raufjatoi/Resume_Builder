@@ -15,12 +15,12 @@ const features = [
   {
     icon: <Layout size={32} className="text-primary" />,
     title: "Professional Templates",
-    description: "Choose from a variety of ATS-friendly templates designed by professionals.",
+    description: "Choose from a variety of ATS-friendly templates.",
   },
   {
     icon: <Download size={32} className="text-primary" />,
     title: "Export Options",
-    description: "Download your resume as PDF or print it directly for your job applications.",
+    description: "Download your resume as PDF.",
   },
 ];
 
