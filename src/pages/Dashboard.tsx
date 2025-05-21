@@ -70,7 +70,7 @@ const Dashboard = () => {
         )}
 
         <div className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow border border-gray-100 dark:border-gray-700">
-          <h2 className="text-xl font-semibold mb-4">My Resumes</h2>
+          <h2 className="text-xl font-semibold mb-4">Create Resume</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             <CreateResumeCard />
           </div>

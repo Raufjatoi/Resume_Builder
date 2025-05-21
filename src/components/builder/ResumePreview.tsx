@@ -1,3 +1,4 @@
+
 import React, { useRef, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Download, Loader2 } from "lucide-react";
@@ -275,14 +276,18 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ resumeData, template, onD
     try {
       // Set fixed width for consistent PDF output
       const originalWidth = resumeRef.current.style.width;
+      const originalHeight = resumeRef.current.style.height;
       const originalPadding = resumeRef.current.style.padding;
+      const originalOverflow = resumeRef.current.style.overflow;
       
       // Apply temporary styles for better PDF rendering
       resumeRef.current.style.width = "800px";
+      resumeRef.current.style.height = "auto";
       resumeRef.current.style.padding = "40px";
+      resumeRef.current.style.overflow = "visible";
       
       // Add a slight delay to ensure styles are applied
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 300));
       
       const canvas = await html2canvas(resumeRef.current, {
         scale: 2, // Higher scale for better quality
@@ -290,12 +295,24 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ resumeData, template, onD
         logging: false,
         allowTaint: true,
         windowWidth: 1000, // Fixed width for consistency
-        backgroundColor: "#ffffff"
+        backgroundColor: "#ffffff",
+        height: resumeRef.current.scrollHeight, // Capture full height
+        onclone: (document, element) => {
+          // Ensure all sections are visible in the cloned element
+          element.style.height = "auto";
+          element.style.overflow = "visible";
+          element.querySelectorAll('.mb-6').forEach((section: any) => {
+            section.style.display = 'block';
+            section.style.visibility = 'visible';
+          });
+        }
       });
       
       // Restore original styles
       resumeRef.current.style.width = originalWidth;
+      resumeRef.current.style.height = originalHeight;
       resumeRef.current.style.padding = originalPadding;
+      resumeRef.current.style.overflow = originalOverflow;
       
       const imgData = canvas.toDataURL('image/png');
       
@@ -308,9 +325,27 @@ const ResumePreview: React.FC<ResumePreviewProps> = ({ resumeData, template, onD
       
       // Calculate dimensions to fit content properly
       const imgWidth = 210; // A4 width in mm
+      const pageHeight = 297; // A4 height in mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      // If the image height is greater than the page height, we need multiple pages
+      let heightLeft = imgHeight;
+      let position = 0;
+      let pageCount = 0;
       
-      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      // Add first page
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      pageCount++;
+      
+      // Add additional pages if needed
+      while (heightLeft > 0) {
+        position = -pageHeight * pageCount; // Negative because we're moving up in the canvas
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+        pageCount++;
+      }
       
       const fileName = resumeData.personal?.fullName 
         ? `${resumeData.personal.fullName.replace(/\s+/g, '_')}_Resume.pdf`

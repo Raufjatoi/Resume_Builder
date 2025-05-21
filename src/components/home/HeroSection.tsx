@@ -10,7 +10,7 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="heading-xl text-gray-900">
-              Build Your Dream Resume <span className="text-primary">with AI Help</span>
+              Build Your Resume <span className="text-primary">with AI Help</span>
             </h1>
             <p className="subtitle mt-6">
               Create, edit, and export your professional resume in minutes. Stand out from the crowd with our AI-powered resume builder.

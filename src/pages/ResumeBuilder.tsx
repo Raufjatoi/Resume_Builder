@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, useParams } from "react-router-dom";
 import { toast } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
-import { Save, Eye, Download, Sparkles, Loader2, MessageSquare } from "lucide-react";
+import { Save, Eye, Download, Sparkles, Loader2, MessageSquare, Menu } from "lucide-react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import ResumeSidebar from "@/components/builder/ResumeSidebar";
 import PersonalInfoSection from "@/components/builder/sections/PersonalInfoSection";
@@ -42,6 +42,19 @@ const ResumeBuilder = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [resumeId, setResumeId] = useState<string | null>(isNew ? null : id || null);
   const [templateType, setTemplateType] = useState<string>(templateId);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    return () => {
+      window.removeEventListener('resize', checkIfMobile);
+    };
+  }, []);
 
   // Fetch resume data if editing existing resume
   useEffect(() => {
@@ -280,37 +293,33 @@ const ResumeBuilder = () => {
     <DashboardLayout>
       <Tabs value={activeTab} onValueChange={setActiveTab} className="flex h-[calc(100vh-32px)] overflow-hidden">
         <div className="flex h-full w-full">
-          <ResumeSidebar
-            activeSection={activeSection}
-            onSectionChange={setActiveSection}
-            progress={progress}
-          />
+          {/* The sidebar is now handled inside the ResumeSidebar component */}
           
           <div className="flex flex-col flex-1 overflow-hidden">
             <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4">
-              <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold">
+              <div className="flex justify-between items-center flex-wrap gap-2">
+                <h1 className="text-xl md:text-2xl font-bold">
                   {isNew ? "Create New Resume" : "Edit Resume"}
                 </h1>
-                <div className="flex space-x-3">
-                  <TabsList>
-                    <TabsTrigger value="edit" className="flex items-center">
-                      <Save className="mr-2 h-4 w-4" />
+                <div className="flex space-x-2">
+                  <TabsList className="grid grid-cols-3 h-auto">
+                    <TabsTrigger value="edit" className="flex items-center py-1.5 px-2 h-auto">
+                      <Save className="mr-2 h-4 w-4 hidden sm:inline-block" />
                       Edit
                     </TabsTrigger>
-                    <TabsTrigger value="preview" className="flex items-center">
-                      <Eye className="mr-2 h-4 w-4" />
+                    <TabsTrigger value="preview" className="flex items-center py-1.5 px-2 h-auto">
+                      <Eye className="mr-2 h-4 w-4 hidden sm:inline-block" />
                       Preview
                     </TabsTrigger>
-                    <TabsTrigger value="assistant" className="flex items-center">
-                      <MessageSquare className="mr-2 h-4 w-4" />
-                      Assistant
+                    <TabsTrigger value="assistant" className="flex items-center py-1.5 px-2 h-auto">
+                      <MessageSquare className="mr-2 h-4 w-4 hidden sm:inline-block" />
+                      AI
                     </TabsTrigger>
                   </TabsList>
                 </div>
               </div>
               
-              <div className="mt-4 flex justify-between">
+              <div className="mt-4 flex flex-wrap justify-between gap-3">
                 <div className="flex space-x-2">
                   <Button
                     variant={templateType === "simple" ? "default" : "outline"}
@@ -327,7 +336,7 @@ const ResumeBuilder = () => {
                     Modern
                   </Button>
                 </div>
-                <div className="flex space-x-3">
+                <div className="flex space-x-2 flex-wrap">
                   <Button
                     variant="outline"
                     size="sm"
@@ -340,7 +349,8 @@ const ResumeBuilder = () => {
                     ) : (
                       <Sparkles className="mr-2 h-4 w-4" />
                     )}
-                    AI Assist
+                    <span className="hidden sm:inline">AI Assist</span>
+                    <span className="sm:hidden">AI</span>
                   </Button>
                   <Button
                     variant="outline"
@@ -354,7 +364,7 @@ const ResumeBuilder = () => {
                     ) : (
                       <Save className="mr-2 h-4 w-4" />
                     )}
-                    Save
+                    <span className="hidden sm:inline">Save</span>
                   </Button>
                   <Button
                     size="sm"
@@ -363,14 +373,14 @@ const ResumeBuilder = () => {
                     disabled={!Object.keys(progress).some(key => progress[key])}
                   >
                     <Download className="mr-2 h-4 w-4" />
-                    Export
+                    <span className="hidden sm:inline">Export</span>
                   </Button>
                 </div>
               </div>
             </div>
             
-            <TabsContent value="edit" className="flex-1 overflow-y-auto p-6 bg-gray-50 dark:bg-gray-900 m-0">
-              <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow min-h-[600px]">
+            <TabsContent value="edit" className="flex-1 overflow-y-auto p-2 sm:p-4 md:p-6 bg-gray-50 dark:bg-gray-900 m-0">
+              <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg shadow min-h-[600px]">
                 {activeSection === "personal" && (
                   <PersonalInfoSection 
                     initialData={resumeData.personal}
@@ -428,8 +438,22 @@ const ResumeBuilder = () => {
               <CareerChatAssistant resumeData={resumeData} />
             </TabsContent>
           </div>
+          {!isMobile && (
+            <ResumeSidebar
+              activeSection={activeSection}
+              onSectionChange={setActiveSection}
+              progress={progress}
+            />
+          )}
         </div>
       </Tabs>
+      {isMobile && (
+        <ResumeSidebar
+          activeSection={activeSection}
+          onSectionChange={setActiveSection}
+          progress={progress}
+        />
+      )}
     </DashboardLayout>
   );
 };

@@ -113,6 +113,7 @@ const CertificationsSection = ({ initialData = [], onSave }: CertificationsSecti
                       value={cert.name}
                       onChange={(e) => handleCertificationChange(cert.id, 'name', e.target.value)}
                       placeholder="e.g., AWS Certified Solutions Architect"
+                      className="w-full"
                     />
                   </div>
                   <div className="space-y-2">
@@ -122,6 +123,7 @@ const CertificationsSection = ({ initialData = [], onSave }: CertificationsSecti
                       value={cert.issuer}
                       onChange={(e) => handleCertificationChange(cert.id, 'issuer', e.target.value)}
                       placeholder="e.g., Amazon Web Services"
+                      className="w-full"
                     />
                   </div>
                   <div className="space-y-2">
@@ -131,6 +133,7 @@ const CertificationsSection = ({ initialData = [], onSave }: CertificationsSecti
                       type="month"
                       value={cert.date}
                       onChange={(e) => handleCertificationChange(cert.id, 'date', e.target.value)}
+                      className="w-full"
                     />
                   </div>
                   <div className="space-y-2">
@@ -140,6 +143,7 @@ const CertificationsSection = ({ initialData = [], onSave }: CertificationsSecti
                       type="month"
                       value={cert.expiration || ""}
                       onChange={(e) => handleCertificationChange(cert.id, 'expiration', e.target.value)}
+                      className="w-full"
                     />
                   </div>
                 </div>
@@ -151,6 +155,7 @@ const CertificationsSection = ({ initialData = [], onSave }: CertificationsSecti
                     value={cert.url || ""}
                     onChange={(e) => handleCertificationChange(cert.id, 'url', e.target.value)}
                     placeholder="https://"
+                    className="w-full"
                   />
                 </div>
 
@@ -162,6 +167,7 @@ const CertificationsSection = ({ initialData = [], onSave }: CertificationsSecti
                     onChange={(e) => handleCertificationChange(cert.id, 'description', e.target.value)}
                     placeholder="Briefly describe what this certification represents or what you learned"
                     rows={3}
+                    className="w-full"
                   />
                 </div>
               </AccordionContent>
@@ -173,7 +179,7 @@ const CertificationsSection = ({ initialData = [], onSave }: CertificationsSecti
           <Button
             type="button"
             variant="outline"
-            className="flex items-center"
+            className="flex items-center w-full sm:w-auto"
             onClick={handleAddCertification}
           >
             <PlusCircle className="mr-2 h-4 w-4" />
@@ -181,7 +187,7 @@ const CertificationsSection = ({ initialData = [], onSave }: CertificationsSecti
           </Button>
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-center sm:justify-end">
           <Button 
             type="submit" 
             className="bg-primary hover:bg-primary-light w-full sm:w-auto"
