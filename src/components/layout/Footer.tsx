@@ -14,7 +14,7 @@ const Footer = () => {
             </p>
             <div className="mt-4 flex space-x-4">
               <a
-                href="https://github.com/"
+                href="https://github.com/Raufjatoi"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-primary"
@@ -22,7 +22,7 @@ const Footer = () => {
                 <Github size={20} />
               </a>
               <a
-                href="https://www.linkedin.com/"
+                href="https://linkedin.com/in/abdul-rauf-aa44892aa"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-primary"
